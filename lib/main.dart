@@ -52,7 +52,7 @@ class GHFlutterState extends State<GHFlutter> {
       final membersJSON = json.decode(response.body);
 
       for (var memberJSON in membersJSON) {
-        final member = Member(memberJSON["login"]);
+        final member = Member(memberJSON["login"], memberJSON["avatar_url"]);
         _members.add(member);
       }
     });
@@ -62,7 +62,11 @@ class GHFlutterState extends State<GHFlutter> {
     return Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListTile(
-            title: Text("${_members[i].login}", style: _biggerFont)
+          title: Text("${_members[i].login}", style: _biggerFont),
+          leading: CircleAvatar(
+              backgroundColor: Colors.green,
+              backgroundImage: NetworkImage(_members[i].avatarUrl)
+          ),
         )
     );
   }
@@ -75,12 +79,16 @@ class GHFlutter extends StatefulWidget {
 
 class Member {
   final String login;
+  final String avatarUrl;
 
-  Member(this.login) {
+  Member(this.login, this.avatarUrl) {
     if (login == null) {
       throw ArgumentError("login of Member cannot be null. "
           "Received: '$login'");
     }
+    if (avatarUrl == null) {
+      throw ArgumentError("avatarUrl of Member cannot be null. "
+          "Received: '$avatarUrl'");
+    }
   }
 }
-
