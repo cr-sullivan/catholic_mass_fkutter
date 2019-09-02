@@ -1,3 +1,8 @@
+//https://www.raywenderlich.com/4529993-getting-started-with-flutter
+
+// Next:  Navigation:
+//https://www.raywenderlich.com/4562634-flutter-navigation-getting-started
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -9,10 +14,16 @@ class GHFlutterApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Catholic Mass Auckland',
+      title: 'Catholic Mass Auckland 1',
+      theme: ThemeData(primaryColor: Colors.green.shade800),
       home: GHFlutter(),
     );
   }
+}
+
+class GHFlutter extends StatefulWidget {
+  @override
+  createState() => GHFlutterState();
 }
 
 class GHFlutterState extends State<GHFlutter> {
@@ -24,7 +35,7 @@ class GHFlutterState extends State<GHFlutter> {
   Widget build(BuildContext context) {
     return Scaffold (
       appBar: AppBar(
-        title: Text('Catholic Mass Auckland'),
+        title: Text('Catholic Mass Auckland 1'),
       ),
       body: ListView.builder(
           itemCount: _members.length * 2,
@@ -70,11 +81,6 @@ class GHFlutterState extends State<GHFlutter> {
         )
     );
   }
-}
-
-class GHFlutter extends StatefulWidget {
-  @override
-  createState() => GHFlutterState();
 }
 
 class Member {
