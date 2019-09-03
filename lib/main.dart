@@ -11,6 +11,10 @@ import 'package:catholic_mass/ParishWidget.dart';
 
 String appTitle = 'Catholic Mass Auckland 0.001';
 
+String details = 'Some details for the parish.\r\n' +
+    'Regular Masses on Sudays.\r\n' +
+    'Parish Priest: Fr Sherwin Lapaan';
+
 void main() => runApp(CatholicMassAucklandApp());
 
 
@@ -76,7 +80,8 @@ class CatholicMassAucklandState extends State<CatholicMassAuckland> {
       final membersJSON = json.decode(response.body);
 
       for (var memberJSON in membersJSON) {
-        final member = Parish(memberJSON["login"], memberJSON["avatar_url"]);
+        final member = Parish(memberJSON["login"], memberJSON["avatar_url"],
+            details);
         _parishes.add(member);
       }
     });

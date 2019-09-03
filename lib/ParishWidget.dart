@@ -14,7 +14,12 @@ class ParishState extends State<ParishWidget> {
         ),
         body: Padding(
             padding: EdgeInsets.all(16.0),
-            child: Image.network(parish.avatarUrl)));
+            child: Column(children: [
+              Image.network(parish.avatarUrl),
+              Text(parish.details),
+            ], ),
+        ),
+    );
   }
 }
 
