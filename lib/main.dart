@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:catholic_mass/Parish.dart';
+import 'package:catholic_mass/ParishWidget.dart';
 
 String appTitle = 'Catholic Mass Auckland 0.001';
 
@@ -90,6 +91,9 @@ class CatholicMassAucklandState extends State<CatholicMassAuckland> {
               backgroundColor: Colors.green,
               backgroundImage: NetworkImage(_parishes[i].avatarUrl)
           ),
+          onTap: () {
+            _pushMember(_parishes[i]);
+          },
         )
     );
   }
@@ -104,6 +108,11 @@ class CatholicMassAucklandState extends State<CatholicMassAuckland> {
         );
       }
     );
+  }
+
+  _pushMember(Parish parish) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => ParishWidget(parish)));
   }
 
 }
