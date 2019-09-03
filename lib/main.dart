@@ -6,6 +6,9 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:catholic_mass/Parish.dart';
+
+String appTitle = 'Catholic Mass Auckland 0.001';
 
 void main() => runApp(CatholicMassAucklandApp());
 
@@ -14,7 +17,7 @@ class CatholicMassAucklandApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Catholic Mass Auckland 1',
+      title: appTitle,
       theme: ThemeData(primaryColor: Colors.green.shade800),
       home: CatholicMassAuckland(),
     );
@@ -35,20 +38,13 @@ class CatholicMassAucklandState extends State<CatholicMassAuckland> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Catholic Mass Auckland 1'),
+        title: Text(appTitle),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.info),
             tooltip: 'Show Information',
             onPressed: () {
               _showInfoDialog();
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.navigate_next),
-            tooltip: 'Next page',
-            onPressed: () {
-              //openPage(context);
             },
           ),
         ],
@@ -103,29 +99,13 @@ class CatholicMassAucklandState extends State<CatholicMassAuckland> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('About'),
-          content: Text('Catholic Mass Auckland.  Flutter.  V0.001'),
+          title: Text(appTitle),
+          content: Text('Flutter.\r\nwww.sullivanapps.co.nz'),
         );
       }
     );
   }
 
-
-
 }
 
-class Parish {
-  final String login;
-  final String avatarUrl;
 
-  Parish(this.login, this.avatarUrl) {
-    if (login == null) {
-      throw ArgumentError("login of Member cannot be null. "
-          "Received: '$login'");
-    }
-    if (avatarUrl == null) {
-      throw ArgumentError("avatarUrl of Member cannot be null. "
-          "Received: '$avatarUrl'");
-    }
-  }
-}
