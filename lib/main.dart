@@ -7,38 +7,54 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-void main() => runApp(GHFlutterApp());
+void main() => runApp(CatholicMassAucklandApp());
 
 
-class GHFlutterApp extends StatelessWidget {
+class CatholicMassAucklandApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Catholic Mass Auckland 1',
       theme: ThemeData(primaryColor: Colors.green.shade800),
-      home: GHFlutter(),
+      home: CatholicMassAuckland(),
     );
   }
 }
 
-class GHFlutter extends StatefulWidget {
+class CatholicMassAuckland extends StatefulWidget {
   @override
-  createState() => GHFlutterState();
+  createState() => CatholicMassAucklandState();
 }
 
-class GHFlutterState extends State<GHFlutter> {
-  var _members = <Member>[];
+class CatholicMassAucklandState extends State<CatholicMassAuckland> {
+  var _parishes = <Parish>[];
 
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold (
+    return Scaffold(
       appBar: AppBar(
         title: Text('Catholic Mass Auckland 1'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.info),
+            tooltip: 'Show Information',
+            onPressed: () {
+              _showInfoDialog();
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.navigate_next),
+            tooltip: 'Next page',
+            onPressed: () {
+              //openPage(context);
+            },
+          ),
+        ],
       ),
       body: ListView.builder(
-          itemCount: _members.length * 2,
+          itemCount: _parishes.length * 2,
           itemBuilder: (BuildContext context, int position) {
             if (position.isOdd) return Divider();
 
@@ -63,8 +79,8 @@ class GHFlutterState extends State<GHFlutter> {
       final membersJSON = json.decode(response.body);
 
       for (var memberJSON in membersJSON) {
-        final member = Member(memberJSON["login"], memberJSON["avatar_url"]);
-        _members.add(member);
+        final member = Parish(memberJSON["login"], memberJSON["avatar_url"]);
+        _parishes.add(member);
       }
     });
   }
@@ -73,21 +89,36 @@ class GHFlutterState extends State<GHFlutter> {
     return Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListTile(
-          title: Text("${_members[i].login}", style: _biggerFont),
+          title: Text("${_parishes[i].login}", style: _biggerFont),
           leading: CircleAvatar(
               backgroundColor: Colors.green,
-              backgroundImage: NetworkImage(_members[i].avatarUrl)
+              backgroundImage: NetworkImage(_parishes[i].avatarUrl)
           ),
         )
     );
   }
+
+  void _showInfoDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('About'),
+          content: Text('Catholic Mass Auckland.  Flutter.  V0.001'),
+        );
+      }
+    );
+  }
+
+
+
 }
 
-class Member {
+class Parish {
   final String login;
   final String avatarUrl;
 
-  Member(this.login, this.avatarUrl) {
+  Parish(this.login, this.avatarUrl) {
     if (login == null) {
       throw ArgumentError("login of Member cannot be null. "
           "Received: '$login'");
